@@ -10,41 +10,34 @@ import it.academy.mapper.AppUserReadMapper;
 import it.academy.model.AppUser;
 import it.academy.model.AppUserInfo;
 import it.academy.model.AppUserRole;
-import it.academy.service.AppUserService;
 import it.academy.service.AppUserServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 import java.util.StringJoiner;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doReturn;
 
+@ExtendWith(MockitoExtension.class)
 class AppUserServiceImplUnitTest {
-    AppUserService appUserService;
-
+    @Mock
     AppUserDao appUserDao;
+    @Mock
     AppUserInfoDao appUserInfoDao;
+    @Mock
     AppUserRoleDao appUserRoleDao;
+    @Mock
     AppUserCreateMapper appUserCreateMapper;
+    @Mock
     AppUserReadMapper appUserReadMapper;
-
-    @BeforeEach
-    void init() {
-        this.appUserDao = Mockito.mock(AppUserDao.class);
-        this.appUserInfoDao = Mockito.mock(AppUserInfoDao.class);
-        this.appUserRoleDao = Mockito.mock(AppUserRoleDao.class);
-        this.appUserCreateMapper = Mockito.mock(AppUserCreateMapper.class);
-        this.appUserReadMapper = Mockito.mock(AppUserReadMapper.class);
-        this.appUserService = new AppUserServiceImpl(
-                appUserDao,
-                appUserInfoDao,
-                appUserRoleDao,
-                appUserCreateMapper,
-                appUserReadMapper);
-    }
+    @InjectMocks
+    AppUserServiceImpl appUserService;
 
     @Test
     void createAppUser() {
@@ -70,13 +63,16 @@ class AppUserServiceImplUnitTest {
                 .add(appUserCreateDto.firstname())
                 .add(appUserCreateDto.patronymic())
                 .toString();
-        AppUserReadDto appUserReadDto = new AppUserReadDto(fullName, appUserCreateDto.email(), appUserCreateDto.role());
+        AppUserReadDto appUserReadDto = new AppUserReadDto(
+                fullName,
+                appUserCreateDto.email(),
+                appUserCreateDto.role());
 
-        Mockito.doReturn(Optional.empty()).when(appUserInfoDao).findByEmail(appUserCreateDto.email());
-        Mockito.doReturn(appUser).when(appUserCreateMapper).map(appUserCreateDto);
-        Mockito.doReturn(Optional.of(appUserRole)).when(appUserRoleDao).findRoleByName(appUserCreateDto.role());
-        Mockito.doReturn(appUser).when(appUserDao).save(appUser);
-        Mockito.doReturn(appUserReadDto).when(appUserReadMapper).map(appUser);
+        doReturn(Optional.empty()).when(appUserInfoDao).findByEmail(appUserCreateDto.email());
+        doReturn(appUser).when(appUserCreateMapper).map(appUserCreateDto);
+        doReturn(Optional.of(appUserRole)).when(appUserRoleDao).findRoleByName(appUserCreateDto.role());
+        doReturn(appUser).when(appUserDao).save(appUser);
+        doReturn(appUserReadDto).when(appUserReadMapper).map(appUser);
 
         AppUserReadDto result = appUserService.createAppUser(appUserCreateDto);
         assertAll(

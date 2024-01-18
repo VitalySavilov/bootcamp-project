@@ -27,7 +27,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Transactional
     public AppUserReadDto createAppUser(AppUserCreateDto appUserCreateDto) {
         appUserInfoDao.findByEmail(appUserCreateDto.email()).ifPresent(s -> {
-            throw new EmailAlreadyExistException(new StringBuilder()
+            throw new EmailAlreadyExistException(new StringBuilder() //todo test
                     .append("User with email: \"")
                     .append(appUserCreateDto.email())
                     .append("\" already exists")
