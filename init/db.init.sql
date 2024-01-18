@@ -28,3 +28,9 @@ ALTER TABLE t_user
 
 ALTER TABLE t_user
     ADD CONSTRAINT FK_T_USER_ON_R FOREIGN KEY (R_ID) REFERENCES t_role (R_ID);
+
+INSERT INTO t_role (R_ID, U_R_NAME)
+VALUES ('1', 'Administrator'),
+       ('2', 'Sale User'),
+       ('3', 'Customer User'),
+       ('4', 'Secure API User');
