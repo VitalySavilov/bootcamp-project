@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <t_user_info INFO_ID="1"
+                 INFO_U_FIRSTNAME="Ivan"
+                 INFO_U_LASTNAME="Ivanov"
+                 INFO_U_PATRONYMIC="Ivanovich"
+                 INFO_U_EMAIL="ivan@gmail.com"/>
+    <t_user USER_ID="1" INFO_ID="1" R_ID="1"/>
+</dataset>
