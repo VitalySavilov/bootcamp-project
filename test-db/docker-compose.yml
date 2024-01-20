@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+
+  test-mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test_bootcamp
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d

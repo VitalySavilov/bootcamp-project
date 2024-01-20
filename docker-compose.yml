@@ -2,15 +2,40 @@ version: '3.9'
 
 services:
 
-  test-mysql:
+  myapp-mysql:
     image: mysql:8.0
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=test
-      - MYSQL_DATABASE=test_bootcamp
-      - MYSQL_USER=test
-      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=kenny
+      - MYSQL_DATABASE=bootcamp
+      - MYSQL_USER=kenny
+      - MYSQL_PASSWORD=kenny
     ports:
-      - '3306:3306'
+      - '3308:3306'
     volumes:
-      - ./init:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+
+  myapp-main:
+    build: ./web
+    restart: on-failure
+    depends_on:
+      - myapp-mysql
+    ports:
+      - '8080:8080'
+    environment:
+      - DATABASE_URL=jdbc:mysql://myapp-mysql:3306/bootcamp
+      - DATABASE_USERNAME=kenny
+      - DATABASE_PASSWORD=kenny
+      - TZ=Europe/Minsk
+    volumes:
+      - app_logs:/home/app/logs
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8888:8080'
+
+volumes:
+  mysql_data:
+  app_logs:

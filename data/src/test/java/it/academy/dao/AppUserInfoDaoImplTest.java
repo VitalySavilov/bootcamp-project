@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import it.academy.DataConfig;
 import it.academy.model.AppUserInfo;
 import org.junit.jupiter.api.Test;
@@ -26,14 +27,15 @@ import static org.junit.jupiter.api.Assertions.*;
         DependencyInjectionTestExecutionListener.class,
         DbUnitTestExecutionListener.class
 })
+@DbUnitConfiguration(databaseConnection="dataSource")
 class AppUserInfoDaoImplTest {
 
     @Autowired
     private AppUserInfoDao appUserInfoDao;
 
     @Test
-    @DatabaseSetup(value = "classpath:db/user.xml")
-    @DatabaseTearDown(value = "classpath:db/user.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup(connection="dataSource", value = "classpath:db/user.xml")
+    @DatabaseTearDown(connection="dataSource", value = "classpath:db/user.xml", type = DatabaseOperation.DELETE_ALL)
     void findByEmail() {
         String email = "ivan@gmail.com";
         String firstName = "Ivan";
