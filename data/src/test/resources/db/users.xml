@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <t_user_info INFO_ID="1"
+                 INFO_U_FIRSTNAME="Ivan"
+                 INFO_U_LASTNAME="Ivanov"
+                 INFO_U_PATRONYMIC="Ivanovich"
+                 INFO_U_EMAIL="ivan@gmail.com"/>
+    <t_user_info INFO_ID="2"
+                 INFO_U_FIRSTNAME="Petr"
+                 INFO_U_LASTNAME="Petrov"
+                 INFO_U_PATRONYMIC="Petrovich"
+                 INFO_U_EMAIL="petr@gmail.com"/>
+    <t_user_info INFO_ID="3"
+                 INFO_U_FIRSTNAME="Sergey"
+                 INFO_U_LASTNAME="Sergeev"
+                 INFO_U_PATRONYMIC="Sergeevich"
+                 INFO_U_EMAIL="sergey@gmail.com"/>
+    <t_user_info INFO_ID="4"
+                 INFO_U_FIRSTNAME="Egor"
+                 INFO_U_LASTNAME="Egorov"
+                 INFO_U_PATRONYMIC="Egorovich"
+                 INFO_U_EMAIL="egor@gmail.com"/>
+    <t_user_info INFO_ID="5"
+                 INFO_U_FIRSTNAME="Aleksey"
+                 INFO_U_LASTNAME="Alekseev"
+                 INFO_U_PATRONYMIC="Alekseevich"
+                 INFO_U_EMAIL="aleksey@gmail.com"/>
+    <t_user USER_ID="1" INFO_ID="1" R_ID="1"/>
+    <t_user USER_ID="2" INFO_ID="2" R_ID="2"/>
+    <t_user USER_ID="3" INFO_ID="3" R_ID="3"/>
+    <t_user USER_ID="4" INFO_ID="4" R_ID="4"/>
+    <t_user USER_ID="5" INFO_ID="5" R_ID="1"/>
+</dataset>
+
+

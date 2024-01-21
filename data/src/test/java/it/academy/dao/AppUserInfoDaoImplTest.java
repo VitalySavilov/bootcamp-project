@@ -27,15 +27,14 @@ import static org.junit.jupiter.api.Assertions.*;
         DependencyInjectionTestExecutionListener.class,
         DbUnitTestExecutionListener.class
 })
-@DbUnitConfiguration(databaseConnection="dataSource")
 class AppUserInfoDaoImplTest {
 
     @Autowired
     private AppUserInfoDao appUserInfoDao;
 
     @Test
-    @DatabaseSetup(connection="dataSource", value = "classpath:db/user.xml")
-    @DatabaseTearDown(connection="dataSource", value = "classpath:db/user.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup(value = "classpath:db/user.xml")
+    @DatabaseTearDown(value = "classpath:db/user.xml", type = DatabaseOperation.DELETE_ALL)
     void findByEmail() {
         String email = "ivan@gmail.com";
         String firstName = "Ivan";
