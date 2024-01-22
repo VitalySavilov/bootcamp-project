@@ -1,7 +1,9 @@
 package it.academy.handler;
 
+import it.academy.exception.EmailAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,6 +28,20 @@ public class RestControllerExceptionHandler {
         });
         log.warn(ex.getMessage());
         return errors;
+    }
+
+    @ExceptionHandler(EmailAlreadyExistException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleEmailAlreadyExistException(RuntimeException ex) {
+        log.warn(ex.getMessage());
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleHttpMessageNotReadableException(RuntimeException ex) {
+        log.warn(ex.getMessage());
+        return ex.getMessage();
     }
 
 }
