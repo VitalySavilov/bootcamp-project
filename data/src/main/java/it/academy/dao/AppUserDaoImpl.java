@@ -31,4 +31,13 @@ public class AppUserDaoImpl implements AppUserDao {
                 .getResultList();
     }
 
+    @Override
+    public List<AppUser> findUsers(int firstResult, int pageSize) {
+        return entityManager.createQuery(
+                        "select u from AppUser u order by u.appUserInfo.email", AppUser.class)
+                .setFirstResult(firstResult)
+                .setMaxResults(pageSize)
+                .getResultList();
+    }
+
 }

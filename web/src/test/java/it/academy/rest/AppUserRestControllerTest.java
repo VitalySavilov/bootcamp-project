@@ -74,6 +74,14 @@ class AppUserRestControllerTest {
                 List.class).size(), 5);
     }
 
+    @Test
+    @DatabaseSetup(value = "classpath:db/users.xml")
+    @DatabaseTearDown(value = "classpath:db/users.xml", type = DatabaseOperation.DELETE_ALL)
+    void getUsersPage() {
+        assertEquals(restTemplate.getForObject(createURLWithPort("/api/v1/users"),
+                List.class).size(), 5);
+    }
+
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + uri;
     }

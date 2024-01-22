@@ -97,4 +97,17 @@ class AppUserServiceImplUnitTest {
         assertEquals(appUsers.size(), resultList.size());
     }
 
+    @Test
+    void getUsersPage() {
+        List<AppUser> appUsers = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            appUsers.add(AppUser.builder().build());
+        }
+        doReturn(appUsers).when(appUserDao).findUsers(Mockito.anyInt(), Mockito.anyInt());
+        doReturn(new AppUserReadDto("dummy", "dummy", "dummy"))
+                .when(appUserReadMapper).map(Mockito.any(AppUser.class));
+        List<AppUserReadDto> resultList = appUserService.getUsersPage(Mockito.anyInt(), Mockito.anyInt());
+        assertEquals(appUsers.size(), resultList.size());
+    }
+
 }

@@ -48,4 +48,12 @@ public class AppUserServiceImpl implements AppUserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<AppUserReadDto> getUsersPage(int pageNumber, int pageSize) {
+        int firstResult = pageNumber * pageSize;
+        return appUserDao.findUsers(firstResult, pageSize).stream()
+                .map(appUserReadMapper::map)
+                .collect(Collectors.toList());
+    }
+
 }

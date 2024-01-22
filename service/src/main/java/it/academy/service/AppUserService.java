@@ -11,4 +11,6 @@ public interface AppUserService {
 
     List<AppUserReadDto> getAllUsers();
 
+    List<AppUserReadDto> getUsersPage(int pageNumber, int pageSize);
+
 }

@@ -67,4 +67,14 @@ class AppUserServiceImplTest {
         assertEquals(expectedCount, resultList.size());
     }
 
+    @Test
+    @DatabaseSetup(value = "classpath:db/users.xml")
+    @DatabaseTearDown(value = "classpath:db/users.xml", type = DatabaseOperation.DELETE_ALL)
+    void getUsersPage() {
+        int pageNumber = 0;
+        int pageSize = 4;
+        List<AppUserReadDto> resultList = appUserService.getUsersPage(pageNumber, pageSize);
+        assertEquals(pageSize, resultList.size());
+    }
+
 }

@@ -13,4 +13,6 @@ public interface AppUserDao {
 
     List<AppUser> findAll();
 
+    List<AppUser> findUsers(int firstResult, int pageSize);
+
 }

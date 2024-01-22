@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppUserRestController {
     private final AppUserService appUserService;
+    private static final int PAGE_SIZE = 10;
 
     @PostMapping
     public ResponseEntity<AppUserReadDto> postUser(@RequestBody @Validated AppUserCreateDto appUserCreateDto) {
@@ -28,6 +29,14 @@ public class AppUserRestController {
     public ResponseEntity<List<AppUserReadDto>> getAllUsers() {
         return new ResponseEntity<>(
                 appUserService.getAllUsers(),
+                HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AppUserReadDto>> getUsersPage(
+            @RequestParam(name = "page", defaultValue = "0") int pageNumber) {
+        return new ResponseEntity<>(
+                appUserService.getUsersPage(pageNumber, PAGE_SIZE),
                 HttpStatus.OK);
     }
 

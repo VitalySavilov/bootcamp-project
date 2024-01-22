@@ -72,4 +72,14 @@ class AppUserDaoImplTest {
         assertEquals(expectedCount, resultList.size());
     }
 
+    @Test
+    @DatabaseSetup(value = "classpath:db/users.xml")
+    @DatabaseTearDown(value = "classpath:db/users.xml", type = DatabaseOperation.DELETE_ALL)
+    void findUsers() {
+        int firstResult = 0;
+        int pageSize = 4;
+        List<AppUser> resultList = appUserDao.findUsers(firstResult, pageSize);
+        assertEquals(pageSize, resultList.size());
+    }
+
 }
