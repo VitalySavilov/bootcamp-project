@@ -48,6 +48,4 @@ public class AppUserServiceImpl implements AppUserService {
                 .collect(Collectors.toList());
     }
 
-
-
 }

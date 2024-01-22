@@ -15,8 +15,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
 
@@ -79,6 +82,19 @@ class AppUserServiceImplUnitTest {
                 () -> assertEquals(fullName, result.fullName()),
                 () -> assertEquals(appUserCreateDto.email(), result.email()),
                 () -> assertEquals(appUserCreateDto.role(), result.role()));
+    }
+
+    @Test
+    void getAllUsers() {
+        List<AppUser> appUsers = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            appUsers.add(AppUser.builder().build());
+        }
+        doReturn(appUsers).when(appUserDao).findAll();
+        doReturn(new AppUserReadDto("dummy", "dummy", "dummy"))
+                .when(appUserReadMapper).map(Mockito.any(AppUser.class));
+        List<AppUserReadDto> resultList = appUserService.getAllUsers();
+        assertEquals(appUsers.size(), resultList.size());
     }
 
 }

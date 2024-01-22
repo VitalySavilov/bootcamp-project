@@ -19,6 +19,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import java.util.List;
 import java.util.StringJoiner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,6 +64,14 @@ class AppUserRestControllerTest {
                 () -> assertEquals(fullName, result.fullName()),
                 () -> assertEquals(appUserCreateDto.email(), result.email()),
                 () -> assertEquals(appUserCreateDto.role(), result.role()));
+    }
+
+    @Test
+    @DatabaseSetup(value = "classpath:db/users.xml")
+    @DatabaseTearDown(value = "classpath:db/users.xml", type = DatabaseOperation.DELETE_ALL)
+    void getAllUsers() {
+        assertEquals(restTemplate.getForObject(createURLWithPort("/api/v1/users/all"),
+                List.class).size(), 5);
     }
 
     private String createURLWithPort(String uri) {

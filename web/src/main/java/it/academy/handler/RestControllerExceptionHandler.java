@@ -27,4 +27,5 @@ public class RestControllerExceptionHandler {
         log.warn(ex.getMessage());
         return errors;
     }
+
 }
