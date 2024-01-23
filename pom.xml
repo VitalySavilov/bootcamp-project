@@ -26,6 +26,8 @@
         <hibernate.version>6.2.5.Final</hibernate.version>
         <hibernate.validator.version>8.0.1.Final</hibernate.validator.version>
         <junit.version>5.9.2</junit.version>
+        <mockito.version>5.4.0</mockito.version>
+        <mockito.junit.version>5.7.0</mockito.junit.version>
         <dbunit.version>2.7.3</dbunit.version>
         <spring-test-dbunit>1.3.0</spring-test-dbunit>
         <lombok.version>1.18.24</lombok.version>
@@ -84,13 +86,13 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>5.4.0</version>
+                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-junit-jupiter</artifactId>
-                <version>5.7.0</version>
+                <version>${mockito.junit.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
