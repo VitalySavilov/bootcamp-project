@@ -6,6 +6,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import it.academy.dto.AppUserCreateDto;
 import it.academy.dto.AppUserReadDto;
+import it.academy.exception.EmailAlreadyExistException;
 import it.academy.service.AppUserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,8 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.StringJoiner;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = ServiceConfig.class)
@@ -75,6 +75,19 @@ class AppUserServiceImplTest {
         int pageSize = 4;
         List<AppUserReadDto> resultList = appUserService.getUsersPage(pageNumber, pageSize);
         assertEquals(pageSize, resultList.size());
+    }
+
+    @Test
+    @DatabaseSetup(value = "classpath:db/users.xml")
+    @DatabaseTearDown(value = "classpath:db/users.xml", type = DatabaseOperation.DELETE_ALL)
+    void throwExceptionIfEmailAlreadyExist() {
+        AppUserCreateDto appUserCreateDto = new AppUserCreateDto(
+                "Ivan",
+                "Ivanov",
+                "Ivanovich",
+                "ivan@gmail.com",
+                "Administrator");
+        assertThrows(EmailAlreadyExistException.class,() -> appUserService.createAppUser(appUserCreateDto));
     }
 
 }
